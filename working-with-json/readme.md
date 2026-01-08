@@ -10,5 +10,6 @@ JSON stands for JavaScript Object Notation.
 
 - Mostly used in APIs and web data
 
+---
 
 #### pd.read_json() is a pandas function used to read JSON data and convert it into a DataFrame.
