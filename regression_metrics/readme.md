@@ -1,43 +1,222 @@
-#### Evaluation Metrics for Linear Regression
-A variety of evaluation measures can be used to determine the strength of any linear regression model. These assessment metrics often give an indication of how well the model is producing the observed outputs.
+# 📊 Regression Metrics – Complete Notes
 
-#### The most common measurements are:
+## 🔍 What are Regression Metrics?
 
-1. Mean Square Error (MSE)
-Mean Squared Error (MSE) is an evaluation metric that calculates the average of the squared differences between the actual and predicted values for all the data points. The difference is squared to ensure that negative and positive differences don't cancel each other out.
-```
-MSE = (1/n) * Σ(y_i - ŷ_i)²
-```
-MSE is a way to quantify the accuracy of a model's predictions. MSE is sensitive to outliers as large errors contribute significantly to the overall score.
+Regression metrics are used to **evaluate the performance of regression models**.
 
-2. Mean Absolute Error (MAE)
-Mean Absolute Error is an evaluation metric used to calculate the accuracy of a regression model. MAE measures the average absolute difference between the predicted values and actual values.
+Since regression predicts **continuous numerical values**, we measure **how close the predicted values are to the actual values**.
 
-Mathematically MAE is expressed as:
-```
-MAE = (1/n) * Σ|y_i - ŷ_i|
-```
-Lower MAE value indicates better model performance. It is not sensitive to the outliers as we consider absolute differences.
+These metrics quantify the **prediction error** of the model.
 
-3. Root Mean Squared Error (RMSE)
-The square root of the residuals' variance is the Root Mean Squared Error. It describes how well the observed data points match the expected values or the model's absolute fit to the data. In mathematical notation, it can be expressed as:
-```
-RMSE = √(MSE) = √[(1/n) * Σ(y_i - ŷ_i)²]
-```
-RMSE is in the same unit as the target variable and highlights larger errors more clearly.
+---
 
-4. Coefficient of Determination (R-squared)
-R-Squared is a statistic that indicates how much variation the developed model can explain or capture. It is always in the range of 0 to 1. In general, the better the model matches the data, the greater the R-squared number.
-In mathematical notation, it can be expressed as:
-```
-R² = 1 - [Σ(y_i - ŷ_i)² / Σ(y_i - ȳ)²]
-```
-R squared metric is a measure of the proportion of variance in the dependent variable that is explained the independent variables in the mode
+# 🎯 Why Do We Need Regression Metrics?
 
-5. Adjusted R-Squared Error
-Adjusted R^2measures the proportion of variance in the dependent variable that is explained by independent variables in a regression model. Adjusted R-square accounts the number of predictors in the model and penalizes the model for including irrelevant predictors that don't contribute significantly to explain the variance in the dependent variables.
+Regression metrics help to:
 
-Mathematically, adjusted is expressed as:
+- Measure model accuracy
+- Compare different models
+- Understand prediction errors
+- Improve model performance
+
+---
+
+# 📌 Common Regression Metrics
+
+The most commonly used regression metrics are:
+
+- Mean Absolute Error (MAE)
+- Mean Squared Error (MSE)
+- Root Mean Squared Error (RMSE)
+- R² Score (Coefficient of Determination)
+- Adjusted R²
+
+---
+
+# 1️⃣ Mean Absolute Error (MAE)
+
+### Definition
+
+MAE calculates the **average absolute difference between actual and predicted values**.
+
+### Formula
+
+\[
+MAE = \frac{1}{n} \sum |Y_i - \hat{Y_i}|
+\]
+
+Where:
+
+- \(Y_i\) → Actual value  
+- \(\hat{Y_i}\) → Predicted value  
+- n → Number of observations  
+
+### Characteristics
+
+- Easy to understand
+- All errors are treated equally
+- Less sensitive to outliers
+
+---
+
+# 2️⃣ Mean Squared Error (MSE)
+
+### Definition
+
+MSE calculates the **average of squared differences between actual and predicted values**.
+
+### Formula
+
+\[
+MSE = \frac{1}{n} \sum (Y_i - \hat{Y_i})^2
+\]
+
+### Characteristics
+
+- Penalizes large errors more
+- Sensitive to outliers
+- Used in many optimization algorithms
+
+---
+
+# 3️⃣ Root Mean Squared Error (RMSE)
+
+### Definition
+
+RMSE is the **square root of MSE**.
+
+### Formula
+
+\[
+RMSE = \sqrt{\frac{1}{n} \sum (Y_i - \hat{Y_i})^2}
+\]
+
+### Characteristics
+
+- Same unit as target variable
+- More interpretable than MSE
+- Penalizes large errors heavily
+
+---
+
+# 4️⃣ R² Score (Coefficient of Determination)
+
+### Definition
+
+R² measures how much variance in the target variable is explained by the model.
+
+### Formula
+
+\[
+R^2 = 1 - \frac{SS_{res}}{SS_{tot}}
+\]
+
+Where:
+
+- \(SS_{res}\) → Sum of squared residuals  
+- \(SS_{tot}\) → Total sum of squares  
+
+### Interpretation
+
+| R² Value | Meaning |
+|--------|---------|
+| 1 | Perfect prediction |
+| 0 | Model performs like mean prediction |
+| < 0 | Model performs worse than baseline |
+
+---
+
+# 5️⃣ Adjusted R²
+
+### Definition
+
+Adjusted R² adjusts the R² score by considering the **number of features in the model**.
+
+It prevents **artificial increase of R² when adding irrelevant variables**.
+
+### Formula
+
+\[
+Adjusted\ R^2 = 1 - \left(\frac{(1-R^2)(n-1)}{n-p-1}\right)
+\]
+
+Where:
+
+- n → Number of observations  
+- p → Number of predictors  
+
+---
+
+# 📊 Example
+
+Actual values:
 ```
-Adjusted R² = 1 - [(1 - R²) * (n - 1) / (n - p - 1)]
+[10, 20, 30]
 ```
+
+Predicted values:
+```
+[12, 18, 33]
+```
+
+Errors:
+```
+[2, 2, 3]
+```
+
+MAE = average error  
+MSE = average squared error  
+RMSE = square root of MSE  
+
+---
+
+# ⚙️ Regression Metrics in Python
+
+```python
+from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import r2_score
+import numpy as np
+
+mae = mean_absolute_error(y_true, y_pred)
+
+mse = mean_squared_error(y_true, y_pred)
+
+rmse = np.sqrt(mse)
+
+r2 = r2_score(y_true, y_pred)
+```
+
+---
+
+# 📌 Comparison of Regression Metrics
+
+| Metric | Sensitive to Outliers | Unit |
+|------|----------------------|------|
+| MAE | No | Same as target |
+| MSE | Yes | Squared unit |
+| RMSE | Yes | Same as target |
+| R² | No | No unit |
+
+---
+
+# 🎯 When to Use Which Metric?
+
+Use **MAE**:
+- When equal importance to all errors
+
+Use **RMSE**:
+- When large errors are very bad
+
+Use **R²**:
+- To measure model explanatory power
+
+Use **Adjusted R²**:
+- When comparing models with different numbers of features
+
+---
+
+# 🔥 Key Takeaway
+
+> Regression metrics measure how close predicted values are to actual values.  
+> MAE, MSE, RMSE measure error magnitude, while R² explains how well the model fits the data.
